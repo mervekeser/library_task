@@ -77,5 +77,20 @@ public class BookServiceImpl implements BookService{
         return bookRepository.save(existingBook);
     }
 
+    @Override
+    public Book getBookbyId(UUID id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Book does not exist with id: "+ id));
+
+        return book;
+    }
+
+    @Override
+    public void deleteBook(UUID id) {
+        Book book = getBookbyId(id);
+
+        bookRepository.delete(book);
+    }
+
 
 }

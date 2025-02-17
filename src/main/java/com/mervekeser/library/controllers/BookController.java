@@ -56,4 +56,19 @@ public class BookController {
 
         return ResponseEntity.ok(savedBookDto);
     }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<BookDto> getBook(@PathVariable UUID id){
+        Book book = bookService.getBookbyId(id);
+        BookDto bookDto = bookMapper.toDto(book);
+
+        return ResponseEntity.ok(bookDto);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable UUID id){
+        bookService.deleteBook(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

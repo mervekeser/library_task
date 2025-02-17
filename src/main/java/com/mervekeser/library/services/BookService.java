@@ -11,4 +11,6 @@ public interface BookService {
     List<Book> getAllBooks();
     Book createBook(CreateBookRequest createBookRequest);
     Book updateBook(UUID id, UpdateBookRequest updateBookRequest);
+    Book getBookbyId(UUID id);
+    void deleteBook(UUID id);
 }
