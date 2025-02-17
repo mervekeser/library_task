@@ -1,8 +1,6 @@
 package com.mervekeser.library.controllers;
 
-import com.mervekeser.library.domain.dtos.book.BookDto;
-import com.mervekeser.library.domain.dtos.book.CreateBookRequest;
-import com.mervekeser.library.domain.dtos.book.CreateBookRequestDto;
+import com.mervekeser.library.domain.dtos.book.*;
 import com.mervekeser.library.domain.entities.Book;
 import com.mervekeser.library.mappers.BookMapper;
 import com.mervekeser.library.services.BookService;
@@ -13,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,5 +44,16 @@ public class BookController {
                 savedBookDto,
                 HttpStatus.CREATED
         );
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<BookDto> updateBook(@PathVariable UUID id,
+                                              @Valid @RequestBody UpdateBookRequestDto updateBookRequestDto){
+        UpdateBookRequest updateBookRequest = bookMapper.toUpdateBookRequest(updateBookRequestDto);
+        Book updatedBook = bookService.updateBook(id, updateBookRequest);
+
+        BookDto savedBookDto = bookMapper.toDto(updatedBook);
+
+        return ResponseEntity.ok(savedBookDto);
     }
 }
