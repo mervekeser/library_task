@@ -1,19 +1,26 @@
 package com.mervekeser.library.domain.dtos.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mervekeser.library.domain.dtos.author.AuthorDto;
 import com.mervekeser.library.domain.dtos.publisher.PublisherDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public record BookDto(
-        String title,
-        BigDecimal price,
-        String isbn13,
-        Integer editionYear,
-        PublisherDto publisherDto,
-        Set<AuthorDto> authors
-) {
+public class BookDto{
+       private String title;
+       private BigDecimal price;
+       private String isbn13;
+       private Integer editionYear;
+       private PublisherDto publisherDto;
+       private Set<AuthorDto> authors;
+
 }
