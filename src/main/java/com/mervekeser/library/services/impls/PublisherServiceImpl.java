@@ -18,4 +18,12 @@ public class PublisherServiceImpl implements PublisherService {
     public List<Publisher> getAllPublishers() {
         return publisherRepository.findAll();
     }
+
+    @Override
+    public Publisher createPublisher(Publisher publisher) {
+        if(publisherRepository.existsByNameIgnoreCase(publisher.getName())){
+            throw new IllegalArgumentException("Publisher already exists with name: " + publisher.getName());
+        }
+        return publisherRepository.save(publisher);
+    }
 }
