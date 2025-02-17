@@ -18,4 +18,12 @@ public class AuthorServiceImpl implements AuthorService {
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
+
+    @Override
+    public Author createAuthor(Author author) {
+        if (authorRepository.existsByFullnameIgnoreCase(author.getFullname())){
+            throw new IllegalArgumentException("Author already exists with fullname: " + author.getFullname());
+        }
+        return authorRepository.save(author);
+    }
 }
